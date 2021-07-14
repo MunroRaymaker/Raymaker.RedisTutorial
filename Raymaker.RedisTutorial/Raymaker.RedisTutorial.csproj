@@ -8,5 +8,9 @@
     <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackgroundTasks\" />
+  </ItemGroup>
+
 
 </Project>
