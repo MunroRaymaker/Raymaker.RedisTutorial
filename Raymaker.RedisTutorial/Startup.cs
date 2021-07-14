@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Raymaker.RedisTutorial.Services;
+using StackExchange.Redis;
 
 namespace Raymaker.RedisTutorial
 {
@@ -20,7 +21,10 @@ namespace Raymaker.RedisTutorial
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ICacheService, InMemoryCacheService>();
+            //services.AddSingleton<ICacheService, InMemoryCacheService>();
+            services.AddSingleton<IConnectionMultiplexer>(x =>
+                ConnectionMultiplexer.Connect(Configuration.GetValue<string>("RedisConnection")));
+            services.AddSingleton<ICacheService, RedisCacheService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

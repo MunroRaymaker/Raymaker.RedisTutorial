@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Raymaker.RedisTutorial.Models;
 using Raymaker.RedisTutorial.Services;
+using System.Threading.Tasks;
 
 namespace Raymaker.RedisTutorial.Controllers
 {
@@ -26,8 +23,7 @@ namespace Raymaker.RedisTutorial.Controllers
         [HttpGet("cache/{key}")]
         public async Task<IActionResult> GetCacheValue([FromRoute] string key)
         {
-            //return Ok("hej");
-            var value = await this.cacheService.GetCacheValueAsync(key);
+            var value = await cacheService.GetCacheValueAsync(key);
             return string.IsNullOrEmpty(value) ? (IActionResult) NotFound() : Ok(value);
         }
 
@@ -35,7 +31,7 @@ namespace Raymaker.RedisTutorial.Controllers
         [HttpPost("cache")]
         public async Task<IActionResult> SetCacheValue([FromBody] NewCacheEntry request)
         {
-            await this.cacheService.SetCacheValueAsync(request.Key, request.Value);
+            await cacheService.SetCacheValueAsync(request.Key, request.Value);
             return Ok();
         }
     }

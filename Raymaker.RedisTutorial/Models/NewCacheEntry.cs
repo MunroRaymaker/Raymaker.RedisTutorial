@@ -1,5 +1,3 @@
-using System;
-
 namespace Raymaker.RedisTutorial.Models
 {
     public class NewCacheEntry
